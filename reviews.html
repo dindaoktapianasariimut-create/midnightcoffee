@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Coffee</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        @font-face {
+            font-family: 'CuteButterfly';
+            src: url('CuteButterfly.ttf') format('truetype');
+            font-display: swap;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .my-font {
+            font-family: 'CuteButterfly', sans-serif;
+            font-size: 22px;
+            letter-spacing: -1px;
+            /* Naikkan ukuran */
+            color: #f1f1f1;
+            white-space: nowrap;
+            padding: 0 12px;
+            /* Ruang ekstra kiri–kanan */
+            line-height: normal;
+            /* Hindari pemotongan huruf */
+            display: inline-block;
+            /* Supaya ruang huruf stabil */
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .brand h1 {
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: visible;
+        }
+
+        .brand span {
+            display: inline-block;
+            line-height: 1.2;
+            overflow: visible;
+            white-space: nowrap;
+        }
+
+        .brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        /* ====== NAVBAR ====== */
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: rgba(68, 43, 26, 0.95);
+            padding: 12px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            /* HAPUS gap */
+        }
+
+        .nav-links {
+            margin-left: auto;
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #f1f1f1;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #ffcc66;
+        }
+
+        .nav-links li a.active {
+            color: #ffcc66;
+            border-bottom: 2px solid #ffcc66;
+            padding-bottom: 4px;
+        }
+
+        /* ====== HEADING ====== */
+        h2 {
+            text-align: center;
+            background-color: rgba(91, 61, 42, 0.9);
+            color: white;
+            padding: 15px;
+            margin: 0;
+        }
+
+        /* ====== REVIEW SECTION ====== */
+        .review-section {
+            max-width: 750px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .review {
+            display: flex;
+            align-items: flex-start;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            gap: 15px;
+        }
+
+        .review:last-child {
+            border-bottom: none;
+        }
+
+        .profile-pic {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #5b3d2a;
+        }
+
+        .review-content {
+            flex: 1;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .review-header h4 {
+            margin: 0;
+            color: #5b3d2a;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 18px;
+        }
+
+        .review p {
+            margin: 5px 0;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input,
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="file"] {
+            border: none;
+        }
+
+        button {
+            background-color: #5b3d2a;
+            color: rgb(248, 249, 249);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #7b553a;
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .star {
+            color: #be9d9d;
+            transition: color 0.3s;
+        }
+
+        .star.active {
+            color: gold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ====== NAVBAR ====== -->
+    <nav class="navbar">
+        <div class="brand">
+            <img src="coffee.png" alt="coffee">
+            <h1 class="my-font">Midnight Coffee</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="reviews.html" class="active">Reviews</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <h2>Reviews Pengunjung Coffee Shop</h2>
+
+    <!-- Review yang sudah ada -->
+    <div class="review-section" id="reviewSection">
+        <div class="review">
+            <img src="https://i.pravatar.cc/60?img=5" alt="Profil" class="profile-pic">
+            <div class="review-content">
+                <div class="review-header">
+                    <h4>Bima</h4>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p>Tempatnya nyaman banget, cocok buat nongkrong sore!</p>
+            </div>
+        </div>
+        <div class="review">
+            <img src="https://i.pravatar.cc/60?img=15" alt="Profil" class="profile-pic">
+            <div class="review-content">
+                <div class="review-header">
+                    <h4>Sinta</h4>
+                    <div class="stars">⭐⭐⭐⭐</div>
+                </div>
+                <p>Kopinya mantap, rasa khas banget. Bakal balik lagi!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form untuk menambah review -->
+    <div class="review-section">
+        <h3>Tulis Review Anda</h3>
+        <form id="reviewForm">
+            <input type="text" id="nama" placeholder="Nama Anda" required>
+            <input type="file" id="foto" accept="image/*" required>
+
+            <div class="star-rating" id="starRating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+
+            <textarea id="pesan" rows="4" placeholder="Tulis ulasan Anda di sini..." required></textarea>
+            <button type="submit">Kirim Review</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('reviewForm');
+        const section = document.getElementById('reviewSection');
+        const stars = document.querySelectorAll('.star');
+        let selectedRating = 0;
+
+        // Pilih rating
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                selectedRating = this.getAttribute('data-value');
+                updateStars(selectedRating);
+            });
+        });
+
+        function updateStars(rating) {
+            stars.forEach(star => {
+                if (star.getAttribute('data-value') <= rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Tambah review baru
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const pesan = document.getElementById('pesan').value;
+            const fotoInput = document.getElementById('foto');
+            const file = fotoInput.files[0];
+
+            if (selectedRating === 0) {
+                alert('Silakan pilih rating bintang dulu!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const fotoURL = e.target.result;
+
+                const div = document.createElement('div');
+                div.classList.add('review');
+                div.innerHTML = `
+                    <img src="${fotoURL}" alt="Profil" class="profile-pic">
+                    <div class="review-content">
+                        <div class="review-header">
+                            <h4>${nama}</h4>
+                            <div class="stars">${'⭐'.repeat(selectedRating)}</div>
+                        </div>
+                        <p>${pesan}</p>
+                    </div>
+                `;
+                section.appendChild(div);
+
+                form.reset();
+                updateStars(0);
+                selectedRating = 0;
+                alert('Terima kasih atas reviu Anda!');
+            };
+
+            if (file) reader.readAsDataURL(file);
+        });
+    </script>
+
+</body>
+
+</html>

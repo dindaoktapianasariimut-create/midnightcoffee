@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Midnight Coffee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Georgia';
+        }
+
+        @font-face {
+            font-family: 'CuteButterfly';
+            src: url('CuteButterfly.ttf') format('truetype');
+            font-display: swap;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Recoleta';
+            src: url('Recoleta.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .my-font {
+            font-family: 'CuteButterfly', sans-serif;
+        }
+
+        .title-font {
+            font-family: 'Recoleta', serif;
+        }
+
+        .menu-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card .options {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            border-radius: 0.75rem;
+        }
+
+        .menu-card:hover .options {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-card .options a,
+        .menu-card .action-btn {
+            background: #6B4226;
+            color: #fff;
+            padding: 0.5rem 0.9rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .menu-card .options a:hover,
+        .menu-card .action-btn:hover {
+            background: #935a34;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 9999;
+            padding: 1.5rem;
+        }
+
+        .popup:target {
+            display: flex;
+        }
+
+        .popup-content {
+            background: #fff;
+            color: #111;
+            padding: 1.5rem 1.75rem;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .popup-content input {
+            width: 90%;
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .popup-content a,
+        .popup-content button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .buy-btn {
+            background: #6B4226;
+        }
+
+        .cancel-btn {
+            background: #999;
+        }
+
+        .buy-btn:hover {
+            background: #935a34;
+        }
+
+        .cancel-btn:hover {
+            background: #777;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .popup-content p {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .popup-content .close-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #6B4226;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .popup-content .close-btn:hover {
+            background: #935a34;
+        }
+    </style>
+</head>
+
+<body class="bg-[#5a524c] text-white-800">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full bg-[#2e2e2e] shadow-md z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-0">
+
+            <!-- Logo + Nama Kafe -->
+            <div class="flex items-center space-x-3 ml-[-50px]">
+                <img src="coffee.png" alt="coffee logo" class="w-9 h-9">
+                <h1 class="text-xl font-semibold text-white my-font tracking-wide">Midnight Coffee</h1>
+            </div>
+
+            <!-- Menu Navigasi -->
+            <nav class="space-x-8 hidden md:flex items-center ml-10">
+                <a href="index.html" class="text-gray-200 hover:text-[#d4a373] transition">Home</a>
+                <a href="menu.html" class="text-amber-400 transition">Menu</a>
+                <a href="gallery.html" class="text-gray-200 hover:text-[#d4a373] transition">Gallery</a>
+                <a href="events.html" class="text-gray-200 hover:text-[#d4a373] transition">Events</a>
+                <a href="reviews.html" class="text-gray-200 hover:text-[#d4a373] transition">Reviews</a>
+                <a href="contact.html" class="text-gray-200 hover:text-[#d4a373] transition">Contact</a>
+                <a href="about.html" class="text-gray-200 hover:text-[#d4a373] transition">About</a>
+
+                <!-- Tombol Order -->
+                <a href="#popup-order"
+                    class="ml-6 bg-[#a57c50] text-white px-2 py-1 rounded-full shadow-md hover:bg-[#c49b6a] transition inline-block">
+                    🛒 Order
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Tulisan Best Coffee, dll -->
+    <section
+        class="relative bg-[url('kopi.jpg')] bg-cover bg-center text-white h-[70vh] flex items-center justify-center">
+        <div class="text-center bg-black/50 py-10 px-10 rounded-2xl">
+            <h3 class="text-[#d4a373] tracking-widest uppercase">Best Coffee Shop</h3>
+            <h1 class="title-font text-4xl md:text-5xl font-bold my-4">Awaken Your Senses in Every Midnight Cup</h1>
+            <button class="bg-[#6B4226] text-white px-6 py-3 rounded-full hover:bg-[#c49b6a] transition">Taste it
+                Now!</button>
+        </div>
+    </section>
+
+    <!-- Tulisan Best Seller, dll-->
+    <section class="text-center py-16">
+        <h2 class="title-font text-3xl font-bold mb-3 text-white">Best Seller Drink This Week!</h2>
+        <p class="text-yellow-600 mb-10 max-w-2xl mx-auto">Discover the art of coffee crafted to awaken your midnight
+            moments.</p>
+
+        <div
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 px-20 justify-center grid-auto-cols">
+            <!-- ====== Card Minuman ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="SD.jpg" alt="Strawberry Dream"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Strawberry Dream</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp15.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="VB.jpg" alt="Velvet Berry"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Velvet Berry</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp17.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 3: Berry Bliss ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="BB.jpg" alt="Berry Bliss"
+                    class="w-full  h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Berry Bliss</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp18.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 4: Matcha Emerald ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="ME.jpg" alt="Matcha Emerald"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Matcha Emerald</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp16.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 5: Green Tea Dream ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="GTD.jpg" alt="Green Tea Dream"
+                    class="w-full  h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Green Tea Dream</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp15.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 6: Silken Matcha ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="SM.jpg" alt="Silken Matcha"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Silken Matcha</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp16.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 7: Matcha Mood ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="MM.jpg" alt="Matcha Mood"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Matcha Mood</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp16.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 8: Green Tea Bliss ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="GTB.jpg" alt="Green Tea Bliss"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Green Tea Bliss</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp15.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 9: Ice Latte ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="IL.jpg" alt="Ice Latte"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Ice Latte</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp17.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 10: Affogato Lotus ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="AL.jpg" alt="Affogato Lotus"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Affogato Lotus</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp18.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 11: Caramel Machiato ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="CM.jpg" alt="Caramel Machiato"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Caramel Machiato</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp17.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 12: Cappucino Latte ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="CL.jpg" alt="Cappucino Latte"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Cappucino Latte</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp17.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 13: Mocca Chocolate ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="MC.jpg" alt="Mocca Chocolate"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Mocca Chocolate</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp17.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 14: Boba Brown Sugar ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="BBS.jpg" alt="Boba Brown Sugar"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Boba Brown Sugar</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp18.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 15: Ice Vanilla Latte ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="IVL.jpg" alt="Ice Vanilla Latte"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-4">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Ice Vanilla Latte</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp17.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center py-16">
+        <h2 class="title-font text-3xl font-bold mb-3 text-white">Best Seller Cakes This Week!</h2>
+        <p class="text-yellow-600 mb-10 max-w-2xl mx-auto">Whispering flavors made to enchant your midnight moments.</p>
+        <div
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 px-20 justify-center grid-auto-cols">
+            <!-- ====== Card 16: Classic Cheesecake ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="CC.jpg" alt="Classic Cheesecake"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Classic Cheesecake</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp25.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 17: Mini Cupcake Assortment ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="MCA.jpg" alt="Mini Cupcake Assortment"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Mini Cupcake Assortment</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp20.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 18: Choco Chip Cookies ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="CCC.jpg" alt="Choco Chip Cookies"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Choco Chip Cookies</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp18.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 19: Butter Croissant ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="BC.jpg" alt="Butter Croissant"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Butter Croissant</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp20.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 20: Apple Pie Slice ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="APS.jpg" alt="Apple Pie Slice"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Apple Pie Slice</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp22.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 21: Brownie Fudge ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="BF.jpg" alt="Brownie Fudge"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Brownie Fudge</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp21.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 22: Belgian Waffle ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="BW.jpg" alt="Belgian Waffle"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Belgian Waffle</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp30.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 23: Banana Bread ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="BBR.jpg" alt="Banana Bread"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Banana Bread</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp20.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 24: Mini Donuts ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="MD.jpg" alt="Mini Donuts"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Mini Donuts</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp25.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 25: Basque Burnt Cheesecake ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="BBC.jpg" alt="Basque Burnt Cheesecake"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Basque Burnt Cheesecake</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp27.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 26: Strawberry Shortcake ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="SS.jpg" alt="Strawberry Shortcake"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Strawberry Shortcake</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp26.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 27: Peanut Butter Cookies ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="PBC.jpg" alt="Peanut Butter Cookies"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Peanut Butter Cookies</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp18.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 28: Honey Toast ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="HT.jpg" alt="Honey Toast"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Honey Toast</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp23.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 29: Matcha Pudding ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="MP.jpg" alt="Matcha Pudding"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Matcha Pudding</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp20.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- ====== Card 30: Lemon Tart ====== -->
+            <div
+                class="menu-card bg-white shadow-md rounded-xl p-3 hover:bg-[#7b5e46] hover:shadow-xl transition max-w-[160px] h-[240px] mx-auto relative cursor-pointer">
+                <img src="LT.jpg" alt="Lemon Tart"
+                    class="w-full h-[100px] object-cover rounded-lg transition hover:opacity-80">
+                <div class="mt-3 text-center">
+                    <div class="flex justify-center text-yellow-500 mb-1">⭐⭐⭐⭐</div>
+                    <h3 class="font-semibold">Lemon Tart</h3>
+                    <p class="text-[#6B4226] font-bold mt-1">Rp22.000</p>
+                </div>
+
+                <div class="options">
+                    <a href="#popup-order" class="order-btn">Order Now</a>
+                    <a href="#popup-cart" class="action-btn">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pop-up Order -->
+    <div id="popup-order" class="popup">
+        <div class="popup-content">
+            <h2>🧾 Your Order</h2>
+            <form action="#popup-success">
+                <input type="text" placeholder="Nama Menu" required><br>
+                <input type="text" placeholder="Jumlah" required><br>
+                <input type="text" placeholder="Nama Anda" required><br>
+                <input type="text" placeholder="Alamat Lengkap" required><br>
+                <input type="text" placeholder="Nomor HP" required><br><br>
+                <button type="submit" class="buy-btn">Buy Now</button>
+                <a href="#" class="cancel-btn">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+    <div id="popup-success" class="popup">
+        <div class="popup-content">
+            <h2>✅ Item telah berhasil dipesan!</h2>
+            <p>Terima kasih telah berbelanja di Midnight Coffee☕</p>
+            <a href="#" class="close-btn">Tutup</a>
+        </div>
+    </div>
+
+    <div id="popup-cart" class="popup">
+        <div class="popup-content">
+            <h2>✅ Item telah ditambahkan ke keranjang!</h2>
+            <a href="#" class="close-btn">Tutup</a>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-[#1a1a1a] text-gray-300 py-12 px-8">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+
+            <!-- Contact Us -->
+            <div class="md:-ml-20">
+                <h3 class="text-lg font-semibold text-white mb-3 flex items-center justify-center md:justify-start">
+                    📞 Contact Us
+                </h3>
+                <p class="text-gray-400">Phone:</p>
+                <p class="text-xl text-[#d4b48c] font-medium">+62 812-3456-7890</p>
+            </div>
+
+            <!-- Find Us Here -->
+            <div class="md:-ml-24">
+                <h3 class="text-lg font-semibold text-white mb-3 flex items-center justify-center md:justify-start">
+                    🌐 Find Us Here!
+                </h3>
+                <div class="flex justify-center md:justify-start gap-5 text-2xl">
+                    <a href="#" class="hover:text-green-500" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="hover:text-pink-500" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="hover:text-blue-500" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="hover:text-sky-400" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Halal Logo -->
+            <div class="flex flex-col items-center md:items-end md:mr-0">
+                <div class="flex flex-col items-center text-center">
+                    <img src="Halal.png" alt="Halal Logo" class="w-[100px] brightness-200 mb-2">
+                    <p class="text-sm text-gray-400">Sertifikat No:</p>
+                    <p class="text-sm text-gray-400">ID069521478496351</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="border-gray-700 my-6">
+        <p class="text-center text-gray-400 text-sm">
+            Copyright © 2025 <span class="text-[#d4b48c] font-medium">Midnight Coffee</span> | All Rights
+            Reserved.
+        </p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midnight Coffee</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    
+    body {
+      font-family: 'Georgia', sans-serif;
+      background-color: #262525;
+      color: #fefefe;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    @font-face {
+      font-family: 'CuteButterfly';
+      src: url('CuteButterfly.ttf') format('truetype');
+      font-display: swap;
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Recoleta';
+      src: url('Recoleta.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .my-font {
+      font-family: 'CuteButterfly', sans-serif;
+    }
+
+    .title-font {
+      font-family: 'Recoleta', serif;
+    }
+
+    /* Header navbar */
+    .navbar {
+      background: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid #2a2a2a;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+      padding: 1rem 0;
+      margin: 0;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #fefefe;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #d4a373;
+    }
+
+    /* Judul halaman di bawah header */
+    .page-title {
+      margin-top: 120px;
+      font-size: 2.5rem;
+      color: #f6e6d0;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #d4a373;
+      opacity: 0.85;
+      font-style: italic;
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Galeri */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 40px auto;
+      max-width: 1000px;
+      padding: 0 20px;
+    }
+
+    .gallery img {
+      width: 160px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #000000;
+      color: #fff;
+      padding: 15px 0;
+      font-size: 0.9em;
+      margin-top: 60px;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header/Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <!-- Logo + Nama Kafe -->
+      <div class="flex items-center space-x-3">
+        <img src="coffee.png" alt="coffee logo" class="w-9 h-9">
+        <h1 class="text-xl font-semibold text-white my-font tracking-wide">Midnight Coffee</h1>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+  </nav>
+
+  <!-- Judul halaman -->
+  <h2 class="page-title title-font">Gallery Ruangan Midnight Coffee</h2>
+  <p class="subtitle">"Sebuah tempat di mana aroma kopi berpadu dengan suasana hangat dan cerita yang tenang."</p>
+
+  <!-- Bagian Galeri -->
+  <div class="gallery">
+    <img src="copisop 2.jpg" alt="copisop 2">
+    <img src="gambar copisop 1.jpg" alt="gambar copisop 1">
+    <img src="copisop 3.jpg" alt="copisop 3">
+    <img src="gambar 5.jpg" alt="gambar 5">
+    <img src="gambar 6.jpg" alt="gambar 6">
+    <img src="gmbar 8.jpg" alt="gambar 8">
+    <img src="gmbr 20.jpg" alt="gambar 20">
+    <img src="gambar 11.jpg" alt="gambar 11">
+    <img src="gambar 9.jpg" alt="gambar 9">
+    <img src="gambar 12.jpg" alt="gambar 12">
+    <img src="gambar 13.jpg" alt="gambar 13">
+    <img src="gambar 15.jpg" alt="gambar 15">
+    <img src="gambar kopi.jpg" alt="gambar kopi">
+    <img src="menu betseler.jpg" alt="menu betseler">
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Copyright &copy; 2025 Midnight Coffee | All Rights Reserved.</p>
+  </footer>
+
+</body>
+
+</html>

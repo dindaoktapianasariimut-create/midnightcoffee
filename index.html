@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midnight Coffee</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+  <style>
+    /* ====== GENERAL ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: 'Vortigra';
+      src: url('Vortigra.otf') format('opentype');
+      font-display: swap;
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Vortigra';
+      color: rgb(255, 255, 255);
+      height: 100vh;
+      background: url(COFFEESHOP.jpg)
+        no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* ====== OVERLAY DARK ====== */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 0;
+    }
+
+    /* ====== CONTAINER ====== */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;        
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3.5rem !important;
+      color: #935a34;
+      letter-spacing: 3px;
+      font-weight: 400;
+      margin-top: 150px !important;
+    }
+
+    h2 {
+      font-size: 1rem;
+      letter-spacing: 4px;
+      font-weight: 300;
+      margin-top: 1rem;
+      color: #d4a373;
+    }
+
+    p {
+      margin-top: 6rem !important;
+      font-style: italic;
+      color: #997764;
+    }
+
+    /* ====== NAVIGATION LINKS ====== */
+    nav {
+      margin-top: 2rem;
+    }
+
+    nav a {
+      color: rgb(218, 213, 213);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #c88c50;
+    }
+
+    .mt-auto {
+      margin-top: 16rem !important;
+    }
+
+
+  </style>
+</head>
+
+<body>
+
+  <div class="content">
+    <h1>Midnight Coffee</h1>
+    <h2>COFFEE & CAKES</h2>
+    <p>a harmony of coffee, tea, and handcrafted desserts</p>
+
+    <nav>
+      <a href="menu.html">MENU</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="events.html">EVENTS</a>
+      <a href="reviews.html">REVIEWS</a>
+      <a href="contact.html">CONTACT</a>
+      <a href="about.html">ABOUT</a>
+    </nav>
+
+    <div class="mt-auto">
+    <div class="flex justify-center gap-6 text-3xl text-gray-400 pb-8">
+      <a href="#" class="hover:text-green-500 transition" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="#" class="hover:text-pink-500 transition" title="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="#" class="hover:text-blue-500 transition" title="Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="#" class="hover:text-sky-400 transition" title="Twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </div>
+  </div>
+  </div>
+    
+</body>
+</html>

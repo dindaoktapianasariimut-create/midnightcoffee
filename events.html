@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midnight Coffee</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #1a1a1a;
+      --text: #e6e0d4;
+      --muted: #9a8c7c;
+      --accent: #8B5A2B;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      line-height: 1.6;
+    }
+
+    @font-face {
+      font-family: 'CuteButterfly';
+      src: url('CuteButterfly.ttf') format('truetype');
+      font-display: swap;
+      font-size: small;
+      font-style: normal;
+    }
+
+    .my-font {
+      font-family: 'CuteButterfly', sans-serif;
+    }
+
+    .navbar {
+      background: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: visible;
+    }
+
+    .navbar-brand img {
+      height: 35px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .navbar-brand h1 {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 16px;
+      margin: 0;
+      white-space: nowrap;
+      line-height: 1.3;
+      padding-right: 5px;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-link {
+      color: var(--muted) !important;
+      font-size: 1.05rem;
+      padding: 0.5rem 0.8rem;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff !important;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      font-style: italic;
+    }
+
+    .event-card {
+      background: var(--surface);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      transition: transform 0.3s;
+    }
+
+    .event-header {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .event-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+      padding: 1.25rem;
+    }
+
+    .event-badge {
+      display: inline-block;
+      background: rgba(139, 90, 43, 0.4);
+      color: #e6e0d4;
+      padding: 0.25rem 0.8rem;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .event-body {
+      padding: 1.5rem;
+    }
+
+    .event-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+      color: #fff;
+    }
+
+    .event-meta {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .event-desc {
+      color: #c5b8a8;
+      font-size: 1.05rem;
+      font-weight: 300;
+    }
+
+    .timeline-item {
+      padding: 0.8rem 0;
+      border-left: 1px solid #2a2a2a;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 1.1rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 0 1.5rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      border-top: 1px solid #2a2a2a;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🔁 LOGO: file lokal assets/logo.jpg -->
+  <nav class="navbar navbar-expand-lg py-3">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="coffee.png" alt="Midnight Coffee">
+        <h1 class="text-xl font-semibold text-white my-font tracking-wide"
+          style="font-size:18px; margin:0; white-space:nowrap;">Midnight Coffee</h1>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="text-center py-5">
+    <h1 class="section-title">Acara Mendatang</h1>
+    <p class="section-subtitle">
+      Hangat di tengah keheningan malam.
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <!-- 🔁 EVENT 1: assets/event1.jpg -->
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <div class="event-header" style="background-image: url('events1.jpg')">
+            <div class="event-overlay">
+              <div class="event-badge">Tonight · 9 PM</div>
+              <h3 class="event-title">Kopi & Diskusi Buku</h3>
+            </div>
+          </div>
+          <div class="event-body">
+            <p class="event-meta">November 15, 2025</p>
+            <p class="event-desc">
+              Diskusi sastra dalam suasana malam yang tenang, ditemani kopi hangat dan lampu temaram.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🔁 EVENT 2: assets/event2.jpg -->
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <div class="event-header" style="background-image: url('events2.jpg')">
+            <div class="event-overlay">
+              <div class="event-badge">Nov 23 · 6:30 PM</div>
+              <h3 class="event-title">Workshop Kerajinan Malam</h3>
+            </div>
+          </div>
+          <div class="event-body">
+            <p class="event-meta">November 23, 2025</p>
+            <p class="event-desc">
+              Ciptakan kerajinan tangan dari bahan alami, ditemani alunan musik akustik malam.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🔁 EVENT 3: assets/event3.jpg -->
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <div class="event-header" style="background-image: url('events3.jpg')">
+            <div class="event-overlay">
+              <div class="event-badge">Nov 28 · 8 PM</div>
+              <h3 class="event-title">Malam Musik Akustik</h3>
+            </div>
+          </div>
+          <div class="event-body">
+            <p class="event-meta">November 28, 2025</p>
+            <p class="event-desc">
+              Menikmati suara gitar dan vokal lembut dibawah langit malam yang penuh bintang.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 pt-4 border-top border-secondary">
+      <h2 class="h4 mb-3">Past Gatherings</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h6 class="mb-0">Full Moon Tasting</h6>
+          <small class="text-muted">October 17, 2025</small>
+        </div>
+        <div class="timeline-item">
+          <h6 class="mb-0">Poetry Circle</h6>
+          <small class="text-muted">September 30, 2025</small>
+        </div>
+        <div class="timeline-item">
+          <h6 class="mb-0">Latte Art & Jazz</h6>
+          <small class="text-muted">August 12, 2025</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="container">
+    <p>© 2025 Midnight Coffee</p>
+    <p class="mb-0">Open daily · 6 PM – 2 AM</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

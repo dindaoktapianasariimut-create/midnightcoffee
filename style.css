@@ -1,0 +1,190 @@
+@font-face {
+  font-family: 'Recoleta';
+  src: url('Recoleta-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'CuteButterfly'; 
+  
+  /* Tunjukkan lokasi file font-nya di server. */
+  /* Pastikan jalur ini (./fonts/...) sesuai dengan tempat kamu menyimpan file! */
+  src: url('CuteButterfly.ttf') format('truetype'); 
+  
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ========== RESET DASAR ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'DM Serif Display', serif;
+
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+  position: fixed; /* tetap di atas */
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #121212;
+  padding: 15px 60px;
+  border-bottom: 1px solid #222;
+  z-index: 10;
+}
+
+/* Logo di kiri */
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+/* ====== TEKS DI DEKAT LOGO ====== */
+.brand-text {
+  /* Panggil nama font yang sudah kamu deklarasikan di @font-face */
+  font-family: 'CuteButterfly', cursive; 
+  
+  /* Tambahkan sedikit styling lain agar terlihat bagus: */
+  font-size: 20px; 
+  font-style: bold;
+  letter-spacing: 1px;
+  color: #faf5f5;
+}
+
+
+/* Menu navigasi di tengah */
+.nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #c5a46d;
+}
+
+/* ========== OUR STORY SECTION ========== */
+.our-story {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  background-color: #121212;
+  padding: 80px 80px 0 80px; /* tambahkan padding top = tinggi navbar */
+}
+
+
+/* Kolom teks kiri */
+.story-text {
+  flex: 1;
+  color: #e0e0e0;
+  z-index: 2;
+  max-width: 500px;
+}
+
+.story-text h2 {
+  color: #c5a46d;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.story-text p {
+  font-family: 'Georgia', serif;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+
+/* Kolom gambar kanan */
+.story-image {
+  position: relative;
+  flex: 1;
+  height: 100%;
+}
+
+.story-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Efek gradasi lembut ke arah teks */
+.story-image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 1));
+}
+
+/* ========== OUR PHILOSOPHY SECTION ========== */
+.our-philosophy {
+  height: 100vh;
+  background-color: #121212;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 80px;
+  text-align: center;
+}
+
+.philosophy-text {
+  max-width: 700px;
+  color: #e0e0e0;
+}
+
+.philosophy-text h2 {
+  color: #c5a46d;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.philosophy-text p {
+  font-family: 'Georgia', serif;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+
+/* ========== FADE-IN ANIMATION ========== */
+/* Elemen awalnya transparan */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Keyframe animasi fade-in */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== FOOTER COPYRIGHT ========== */
+.footer {
+  background-color: #0d0d0d; /* sedikit lebih gelap dari body biar kontras lembut */
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid #222;
+}
+
+.footer p {
+  color: #777;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
